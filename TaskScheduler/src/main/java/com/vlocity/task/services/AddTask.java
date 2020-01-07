@@ -1,17 +1,18 @@
-package main.java;
+package com.vlocity.task.services;
 
 /**
  * DOCUMENT ME!
  *
  * @version  $Revision$, $Date$
  */
-public interface EndTask
+public interface AddTask
 {
 	//~ Methods ----------------------------------
 	/**
 	 * DOCUMENT ME!
 	 *
-	 * @param  taskId
+	 * @param   task
+	 * @return
 	 */
-	void endTask(Integer taskId);
+	void saveTask();
 }

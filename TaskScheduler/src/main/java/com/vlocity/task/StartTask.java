@@ -1,20 +1,18 @@
-package com.vlocity.services;
-
-import main.java.Task;
+package com.vlocity.task;
 
 /**
  * DOCUMENT ME!
  *
  * @version  $Revision$, $Date$
  */
-public interface AddTask
+public interface StartTask
 {
 	//~ Methods ----------------------------------
 	/**
 	 * DOCUMENT ME!
 	 *
-	 * @param   task
-	 * @return
+	 * @param   taskId
+	 * @throws  Exception
 	 */
-	void saveTask(Task task);
+	void startTask(Integer taskId) throws Exception;
 }

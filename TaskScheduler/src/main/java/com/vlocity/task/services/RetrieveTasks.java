@@ -1,8 +1,8 @@
-package com.vlocity.services;
+package com.vlocity.task.services;
 
 import java.util.List;
 
-import main.java.Task;
+import com.vlocity.task.Task;
 
 
 /**

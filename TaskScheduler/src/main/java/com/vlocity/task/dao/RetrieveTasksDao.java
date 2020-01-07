@@ -1,4 +1,4 @@
-package com.vlocity.dao;
+package com.vlocity.task.dao;
 
 /**
  * DOCUMENT ME!

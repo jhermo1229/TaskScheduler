@@ -1,18 +1,17 @@
-package main.java;
+package com.vlocity.task;
 
 /**
  * DOCUMENT ME!
  *
  * @version  $Revision$, $Date$
  */
-public interface StartTask
+public interface EndTask
 {
 	//~ Methods ----------------------------------
 	/**
 	 * DOCUMENT ME!
 	 *
-	 * @param   taskId
-	 * @throws  Exception
+	 * @param  taskId
 	 */
-	void startTask(Integer taskId) throws Exception;
+	void endTask(Integer taskId);
 }

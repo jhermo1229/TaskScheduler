@@ -1,5 +1,5 @@
-import com.vlocity.services.RetrieveTasks;
-import com.vlocity.services.impl.RetrieveTasksImpl;
+import com.vlocity.task.services.RetrieveTasks;
+import com.vlocity.task.services.impl.RetrieveTasksImpl;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,7 +13,6 @@ import org.junit.Test;
 public class TaskTest
 {
 	//~ Methods ----------------------------------
-
 	/** DOCUMENT ME! */
 	@Test
 	public void retrieveTaskTest()

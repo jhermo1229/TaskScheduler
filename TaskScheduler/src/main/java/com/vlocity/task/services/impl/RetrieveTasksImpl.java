@@ -1,8 +1,7 @@
-package com.vlocity.services.impl;
+package com.vlocity.task.services.impl;
 
-import com.vlocity.services.RetrieveTasks;
-
-import main.java.Task;
+import com.vlocity.task.Task;
+import com.vlocity.task.services.RetrieveTasks;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -68,12 +67,6 @@ public class RetrieveTasksImpl implements RetrieveTasks
 				}
 			}
 		} // end if
-		System.out.println("Id || Task Name || Start Date || End Date || Task Dependent Id");
-		for (Task task : taskList)
-		{
-			System.out.println(task.getId() + " || " + task.getTaskName() + " || " + task.getStartDate() + " || "
-				+ task.getEndDate() + " || " + task.getDependentTaskId());
-		}
 
 		return taskList;
 	}
