@@ -1,8 +1,8 @@
-package com.vlocity.task.services;
-
-import java.util.List;
+package com.vlocity.task.dao;
 
 import com.vlocity.task.Task;
+
+import java.util.List;
 
 
 /**
@@ -10,13 +10,13 @@ import com.vlocity.task.Task;
  *
  * @version  $Revision$, $Date$
  */
-public interface RetrieveTasks
+public interface PutTaskDao
 {
 	//~ Methods ----------------------------------
 	/**
 	 * DOCUMENT ME!
 	 *
-	 * @return
+	 * @param  taskList
 	 */
-	List<Task> getAllTasks();
+	void updateTask(List<Task> task);
 }

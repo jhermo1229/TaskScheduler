@@ -1,14 +1,20 @@
 package com.vlocity.task.dao;
 
+import java.io.File;
+
+
 /**
  * DOCUMENT ME!
  *
  * @version  $Revision$, $Date$
  */
-public interface RetrieveTasksDao
+public interface GetTaskDao
 {
 	//~ Methods ----------------------------------
-
-	/** DOCUMENT ME! */
-	void getAllTask();
+	/**
+	 * DOCUMENT ME!
+	 *
+	 * @return
+	 */
+	File getAllTask();
 }

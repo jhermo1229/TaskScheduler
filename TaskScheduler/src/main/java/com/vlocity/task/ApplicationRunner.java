@@ -1,9 +1,9 @@
 package com.vlocity.task;
 
-import com.vlocity.task.services.AddTask;
-import com.vlocity.task.services.RetrieveTasks;
-import com.vlocity.task.services.impl.AddTaskImpl;
-import com.vlocity.task.services.impl.RetrieveTasksImpl;
+import com.vlocity.task.services.EndTaskService;
+import com.vlocity.task.services.GetTaskService;
+import com.vlocity.task.services.PostTaskService;
+import com.vlocity.task.services.StartTaskService;
 
 import com.vlocity.util.TaskSchedulerUtil;
 
@@ -26,24 +26,30 @@ public class ApplicationRunner
 	 */
 	public static void main(String[] args)
 	{
-		System.out.print("Choose task todo: [G]et all task, [C]reate new task :");
+		System.out.print("Choose task todo: [G]et all task, [C]reate new task, [S]tart task. [E]nd task :");
 		Scanner s = new Scanner(System.in);
 		String input = s.next();
 
 		if (input.equalsIgnoreCase("C"))
 		{
-			AddTask addTask = new AddTaskImpl();
-			addTask.saveTask();
+			PostTaskService postTask = new PostTaskService();
+			postTask.createTask();
 		}
 		else if (input.equalsIgnoreCase("G"))
 		{
-			RetrieveTasks getTask = new RetrieveTasksImpl();
+			GetTaskService getTask = new GetTaskService();
 			List<Task> taskList = getTask.getAllTasks();
 			TaskSchedulerUtil.getInstance().printTasks(taskList);
 		}
-		else if (input.equalsIgnoreCase("R"))
+		else if (input.equalsIgnoreCase("S"))
 		{
-			//
+			StartTaskService startTask = new StartTaskService();
+			startTask.startTask();
+		}
+		else if (input.equalsIgnoreCase("E"))
+		{
+			EndTaskService endTask = new EndTaskService();
+			endTask.endTask();
 		}
 	}
 }

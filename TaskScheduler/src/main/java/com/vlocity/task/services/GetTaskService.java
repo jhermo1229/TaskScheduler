@@ -1,7 +1,8 @@
-package com.vlocity.task.services.impl;
+package com.vlocity.task.services;
 
 import com.vlocity.task.Task;
-import com.vlocity.task.services.RetrieveTasks;
+import com.vlocity.task.dao.GetTaskDao;
+import com.vlocity.task.dao.impl.GetTaskDaoImpl;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,8 +17,11 @@ import java.util.Scanner;
  *
  * @version  $Revision$, $Date$
  */
-public class RetrieveTasksImpl implements RetrieveTasks
+public class GetTaskService
 {
+	//~ Instance fields --------------------------
+	/**  */
+	private GetTaskDao getTaskDao = new GetTaskDaoImpl();
 	//~ Methods ----------------------------------
 	/**
 	 * @return
@@ -25,17 +29,15 @@ public class RetrieveTasksImpl implements RetrieveTasks
 	 */
 	public List<Task> getAllTasks()
 	{
+		File file = getTaskDao.getAllTask();
 		List<Task> taskList = new ArrayList<>();
-		File file = new File(("Task.txt"));
-
 		if ((file != null) && file.exists())
 		{
 			Scanner scanner = null;
 			try
 			{
 				scanner = new Scanner(file);
-				// get first line
-				// scanner.nextLine();
+
 				while (scanner.hasNextLine())
 				{
 					String readLine = scanner.nextLine();
@@ -50,6 +52,7 @@ public class RetrieveTasksImpl implements RetrieveTasks
 						task.setStartDate(Integer.valueOf(productArr[2]));
 						task.setEndDate(Integer.valueOf(productArr[3]));
 						task.setDependentTaskId(Integer.valueOf(productArr[4]));
+						task.setFlag(productArr[5]);
 						taskList.add(task);
 					}
 				}

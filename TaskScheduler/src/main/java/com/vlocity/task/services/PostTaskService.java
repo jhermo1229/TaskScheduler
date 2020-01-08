@@ -1,14 +1,10 @@
-package com.vlocity.task.services.impl;
+package com.vlocity.task.services;
 
 import com.vlocity.task.Task;
-import com.vlocity.task.services.AddTask;
-import com.vlocity.task.services.RetrieveTasks;
+import com.vlocity.task.dao.PostTaskDao;
+import com.vlocity.task.dao.impl.PostTaskDaoImpl;
 
 import com.vlocity.util.TaskSchedulerUtil;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 import java.util.List;
 import java.util.Scanner;
@@ -19,12 +15,15 @@ import java.util.Scanner;
  *
  * @version  $Revision$, $Date$
  */
-public class AddTaskImpl implements AddTask
+public class PostTaskService
 {
+	//~ Instance fields --------------------------
+	/**  */
+	private PostTaskDao postTask = new PostTaskDaoImpl();
 	//~ Methods ----------------------------------
 	/** DOCUMENT ME! */
 	@SuppressWarnings("resource")
-	public Task createNewTask()
+	public void createTask()
 	{
 		Task task = new Task();
 		Scanner s = new Scanner(System.in);
@@ -34,9 +33,9 @@ public class AddTaskImpl implements AddTask
 		task.setStartDate(s.nextInt());
 		System.out.println("Enter end date (YYYYmmdd): ");
 		task.setEndDate(s.nextInt());
-		System.out.println("Any task dependency?: ");
+		System.out.println("Any task dependency? (Y/N): ");
 		String dependency = s.next();
-		RetrieveTasks getTask = new RetrieveTasksImpl();
+		GetTaskService getTask = new GetTaskService();
 		List<Task> taskList = getTask.getAllTasks();
 		if (dependency.equalsIgnoreCase("Y"))
 		{
@@ -54,8 +53,9 @@ public class AddTaskImpl implements AddTask
 			task.setDependentTaskId(0);
 		}
 		task.setId(taskList.size() + 1);
+		task.setFlag("C");
 
-		return task;
+		postTask.saveTask(task);
 	}
 	
 	/**
@@ -83,31 +83,5 @@ public class AddTaskImpl implements AddTask
 		}
 
 		return isValid;
-	}
-	
-	/** @see  com.vlocity.task.services.AddTask#saveTask(com.vlocity.task.Task) */
-	@Override
-	public void saveTask()
-	{
-		Task task = createNewTask();
-		// Open the file in append mode.
-		FileWriter fw;
-
-		try
-		{
-			fw = new FileWriter("Task.txt", true);
-			PrintWriter out = new PrintWriter(fw);
-			// Append the name of ocean to the file
-			out.println(task.getId() + ";" + task.getTaskName() + ";" + task.getStartDate() + ";" + task.getEndDate()
-				+ ";" + task.getDependentTaskId());
-
-			// Close the file.
-			out.close();
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

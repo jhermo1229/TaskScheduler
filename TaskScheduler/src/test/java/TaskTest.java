@@ -1,5 +1,5 @@
-import com.vlocity.task.services.RetrieveTasks;
-import com.vlocity.task.services.impl.RetrieveTasksImpl;
+
+import com.vlocity.task.services.GetTaskService;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class TaskTest
 	@Test
 	public void retrieveTaskTest()
 	{
-		RetrieveTasks retrieveTask = new RetrieveTasksImpl();
+		GetTaskService retrieveTask = new GetTaskService();
 		Assert.assertNotNull(retrieveTask.getAllTasks());
 	}
 }

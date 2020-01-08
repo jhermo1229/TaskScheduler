@@ -1,18 +1,20 @@
-package com.vlocity.task;
+package com.vlocity.task.dao;
+
+import com.vlocity.task.Task;
+
 
 /**
  * DOCUMENT ME!
  *
  * @version  $Revision$, $Date$
  */
-public interface StartTask
+public interface PostTaskDao
 {
 	//~ Methods ----------------------------------
 	/**
 	 * DOCUMENT ME!
 	 *
-	 * @param   taskId
-	 * @throws  Exception
+	 * @param  task
 	 */
-	void startTask(Integer taskId) throws Exception;
+	void saveTask(Task task);
 }
