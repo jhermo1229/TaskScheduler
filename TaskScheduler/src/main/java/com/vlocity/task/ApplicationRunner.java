@@ -1,11 +1,10 @@
 package com.vlocity.task;
 
 import com.vlocity.task.model.Task;
-import com.vlocity.task.services.EndTaskService;
-import com.vlocity.task.services.GetTaskService;
-import com.vlocity.task.services.PostTaskService;
-import com.vlocity.task.services.StartTaskService;
-
+import com.vlocity.task.service.EndTaskService;
+import com.vlocity.task.service.GetTaskService;
+import com.vlocity.task.service.PostTaskService;
+import com.vlocity.task.service.StartTaskService;
 import com.vlocity.util.TaskSchedulerUtil;
 
 import java.util.List;

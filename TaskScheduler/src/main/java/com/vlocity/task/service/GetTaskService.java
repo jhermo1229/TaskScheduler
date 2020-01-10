@@ -1,4 +1,4 @@
-package com.vlocity.task.services;
+package com.vlocity.task.service;
 
 import com.vlocity.task.dao.GetTaskDao;
 import com.vlocity.task.dao.impl.GetTaskDaoImpl;

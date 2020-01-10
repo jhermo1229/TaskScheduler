@@ -1,4 +1,4 @@
-package com.vlocity.task.services;
+package com.vlocity.task.service;
 
 import com.vlocity.task.dao.PostTaskDao;
 import com.vlocity.task.dao.impl.PostTaskDaoImpl;
@@ -51,7 +51,10 @@ public class PostTaskService
 			while (!isValid)
 			{
 				System.out.println("Please choose task ID or IDs of dependent task:");
-				isValid = validateInput(task, taskList);
+				Scanner input = new Scanner(System.in);
+				String dependentId = input.next();
+
+				isValid = validateInput(task, taskList, dependentId);
 			}
 		}
 		else
@@ -65,12 +68,8 @@ public class PostTaskService
 	}
 	
 	/** Validate if input is valid */
-	@SuppressWarnings("resource")
-	private boolean validateInput(Task task, List<Task> taskList)
+	public boolean validateInput(Task task, List<Task> taskList, String dependentId)
 	{
-		Scanner input = new Scanner(System.in);
-
-		String dependentId = input.next();
 		char[] idList = dependentId.toCharArray();
 		boolean isValid = false;
 		for (char c : idList)
