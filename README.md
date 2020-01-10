@@ -5,3 +5,6 @@ This is a project plan - task scheduler based on the examination given for vloci
 
 Using java and notepad (.txt) as a "Database"
 
+Console app output
+
+
