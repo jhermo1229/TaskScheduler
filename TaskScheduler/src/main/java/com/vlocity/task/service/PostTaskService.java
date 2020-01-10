@@ -35,9 +35,9 @@ public class PostTaskService
 		Scanner s = new Scanner(System.in);
 		System.out.println("Enter Task Name: ");
 		task.setTaskName(s.nextLine());
-		System.out.println("Enter start date (YYYYmmdd): ");
+		System.out.println("Enter start date (yyyyMMdd): ");
 		task.setStartDate(s.nextInt());
-		System.out.println("Enter end date (YYYYmmdd): ");
+		System.out.println("Enter end date (yyyyMMdd): ");
 		task.setEndDate(s.nextInt());
 		System.out.println("Any task dependency? (Y/N): ");
 		String dependency = s.next();
