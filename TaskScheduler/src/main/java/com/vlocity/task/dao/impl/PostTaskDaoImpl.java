@@ -1,7 +1,7 @@
 package com.vlocity.task.dao.impl;
 
-import com.vlocity.task.Task;
 import com.vlocity.task.dao.PostTaskDao;
+import com.vlocity.task.model.Task;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,8 +16,7 @@ import java.io.PrintWriter;
 public class PostTaskDaoImpl implements PostTaskDao
 {
 	//~ Methods ----------------------------------
-	/** @see  com.vlocity.task.dao.PostTaskDao#AddTask(com.vlocity.task.Task) */
-	@Override
+	/** @see  com.vlocity.task.dao.PostTaskDao#AddTask(com.vlocity.task.model.Task) */
 	public void saveTask(Task task)
 	{
 		FileWriter fw;
@@ -35,8 +34,7 @@ public class PostTaskDaoImpl implements PostTaskDao
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Error occured: " + e.toString());
 		}
 	}
 }

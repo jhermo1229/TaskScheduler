@@ -1,8 +1,8 @@
 package com.vlocity.task.services;
 
-import com.vlocity.task.Task;
 import com.vlocity.task.dao.GetTaskDao;
 import com.vlocity.task.dao.impl.GetTaskDaoImpl;
+import com.vlocity.task.model.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,9 +13,9 @@ import java.util.Scanner;
 
 
 /**
- * DOCUMENT ME!
+ * Retrieve all task
  *
- * @version  $Revision$, $Date$
+ * @version  1
  */
 public class GetTaskService
 {
@@ -51,7 +51,7 @@ public class GetTaskService
 						task.setTaskName(productArr[1]);
 						task.setStartDate(Integer.valueOf(productArr[2]));
 						task.setEndDate(Integer.valueOf(productArr[3]));
-						task.setDependentTaskId(Integer.valueOf(productArr[4]));
+						task.setDependentTaskId(productArr[4]);
 						task.setFlag(productArr[5]);
 						taskList.add(task);
 					}

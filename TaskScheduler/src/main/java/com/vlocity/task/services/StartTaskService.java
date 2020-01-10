@@ -1,8 +1,8 @@
 package com.vlocity.task.services;
 
-import com.vlocity.task.Task;
 import com.vlocity.task.dao.PutTaskDao;
 import com.vlocity.task.dao.impl.PutTaskDaoImpl;
+import com.vlocity.task.model.Task;
 
 import com.vlocity.util.TaskSchedulerUtil;
 
@@ -12,12 +12,18 @@ import java.util.Scanner;
 
 
 /**
- * DOCUMENT ME!
+ * Start task
  *
- * @version  $Revision$, $Date$
+ * @version  1
  */
 public class StartTaskService
 {
+	//~ Static fields/initializers ---------------
+	/**  */
+	private static final String STARTED = "S";
+
+	/**  */
+	private static final String NO_DEPENDENCY = "0";
 	//~ Instance fields --------------------------
 	/**  */
 	private GetTaskService getTask = new GetTaskService();
@@ -36,7 +42,7 @@ public class StartTaskService
 		List<Task> taskList = getTask.getAllTasks();
 		for (Task task : taskList)
 		{
-			if (!task.getFlag().contains("S"))
+			if (!task.getFlag().contains(STARTED))
 			{
 				notStartedList.add(task);
 			}
@@ -44,7 +50,6 @@ public class StartTaskService
 
 		TaskSchedulerUtil.getInstance().printTasks(notStartedList);
 		System.out.println("Please choose task ID of task to start:");
-
 		Scanner input = new Scanner(System.in);
 
 		int taskId = input.nextInt();
@@ -53,37 +58,57 @@ public class StartTaskService
 		{
 			if (task.getId() == taskId)
 			{
-				if (task.getDependentTaskId() > 0)
+				if (!task.getDependentTaskId().equals(NO_DEPENDENCY))
 				{
-					for (Task task3 : taskList)
-					{
-						if (task3.getId() == task.getDependentTaskId())
-						{
-							if (task3.getFlag().contains("E"))
-							{
-								String flag = task.getFlag();
-								flag.concat("S");
-								task.setFlag(flag);
-
-								break;
-							}
-							else
-							{
-								System.out.println("Dependent task should be started/ended");
-								System.exit(0);
-							}
-						}
-					}
+					checkDependency(taskList, task);
 				}
 				else
 				{
 					StringBuilder flag = new StringBuilder(task.getFlag());
-					flag.append("S");
+					flag.append(STARTED);
 					task.setFlag(flag.toString());
 				}
 			}
 			finalTaskList.add(task);
 		} // end for
 		updateTask.updateTask(finalTaskList);
+	}
+	
+	/**
+	 * Dependent task checker
+	 *
+	 * @param  taskList
+	 * @param  task
+	 */
+	private void checkDependency(List<Task> taskList, Task task)
+	{
+		char[] dependentList = task.getDependentTaskId().toCharArray();
+
+		for (int i = 0; i < dependentList.length; i++)
+		{
+			char aa = dependentList[i];
+			for (Task task3 : taskList)
+			{
+				if (task3.getId() == Character.getNumericValue(aa))
+				{
+					if (task3.getFlag().contains("E"))
+					{
+						StringBuilder flag = new StringBuilder(task.getFlag());
+						if (i == (dependentList.length - 1))
+						{
+							flag.append(STARTED);
+							task.setFlag(flag.toString());
+						}
+
+						break;
+					}
+					else
+					{
+						System.out.println("Dependent task should be started/ended");
+						System.exit(0);
+					}
+				}
+			}
+		}
 	}
 }

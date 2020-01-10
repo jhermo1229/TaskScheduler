@@ -1,5 +1,6 @@
 package com.vlocity.task;
 
+import com.vlocity.task.model.Task;
 import com.vlocity.task.services.EndTaskService;
 import com.vlocity.task.services.GetTaskService;
 import com.vlocity.task.services.PostTaskService;
@@ -18,6 +19,18 @@ import java.util.Scanner;
  */
 public class ApplicationRunner
 {
+	//~ Static fields/initializers ---------------
+	/**  */
+	private static final String END = "E";
+
+	/**  */
+	private static final String START = "S";
+
+	/**  */
+	private static final String GET = "G";
+
+	/**  */
+	private static final String CREATE = "C";
 	//~ Methods ----------------------------------
 	/**
 	 * DOCUMENT ME!
@@ -26,30 +39,50 @@ public class ApplicationRunner
 	 */
 	public static void main(String[] args)
 	{
-		System.out.print("Choose task todo: [G]et all task, [C]reate new task, [S]tart task. [E]nd task :");
-		Scanner s = new Scanner(System.in);
-		String input = s.next();
+		System.out.print("Choose task todo: [G]et all task, [C]reate new task, [S]tart task, [E]nd task :");
+		Scanner sc = new Scanner(System.in);
+		String input = sc.next();
 
-		if (input.equalsIgnoreCase("C"))
+		taskProcess(input);
+	}
+	
+	/**
+	 * Processing of choice input
+	 *
+	 * @param  input
+	 */
+	private static void taskProcess(String input)
+	{
+		switch (input.toUpperCase())
 		{
-			PostTaskService postTask = new PostTaskService();
-			postTask.createTask();
-		}
-		else if (input.equalsIgnoreCase("G"))
-		{
-			GetTaskService getTask = new GetTaskService();
-			List<Task> taskList = getTask.getAllTasks();
-			TaskSchedulerUtil.getInstance().printTasks(taskList);
-		}
-		else if (input.equalsIgnoreCase("S"))
-		{
-			StartTaskService startTask = new StartTaskService();
-			startTask.startTask();
-		}
-		else if (input.equalsIgnoreCase("E"))
-		{
-			EndTaskService endTask = new EndTaskService();
-			endTask.endTask();
+			case CREATE:
+			{
+				PostTaskService postTask = new PostTaskService();
+				postTask.createTask();
+				break;
+			}
+
+			case GET:
+			{
+				GetTaskService getTask = new GetTaskService();
+				List<Task> taskList = getTask.getAllTasks();
+				TaskSchedulerUtil.getInstance().printTasks(taskList);
+				break;
+			}
+
+			case START:
+			{
+				StartTaskService startTask = new StartTaskService();
+				startTask.startTask();
+				break;
+			}
+
+			case END:
+			{
+				EndTaskService endTask = new EndTaskService();
+				endTask.endTask();
+				break;
+			}
 		}
 	}
 }

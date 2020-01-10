@@ -1,8 +1,8 @@
 package com.vlocity.task.services;
 
-import com.vlocity.task.Task;
 import com.vlocity.task.dao.PutTaskDao;
 import com.vlocity.task.dao.impl.PutTaskDaoImpl;
+import com.vlocity.task.model.Task;
 
 import com.vlocity.util.TaskSchedulerUtil;
 
@@ -12,12 +12,16 @@ import java.util.Scanner;
 
 
 /**
- * DOCUMENT ME!
+ * Task ender
  *
- * @version  $Revision$, $Date$
+ * @version  1
  */
 public class EndTaskService
 {
+	private static final String START = "S";
+
+	private static final String END = "E";
+
 	//~ Instance fields --------------------------
 	/**  */
 	private GetTaskService getTask = new GetTaskService();
@@ -36,7 +40,7 @@ public class EndTaskService
 		List<Task> taskList = getTask.getAllTasks();
 		for (Task task : taskList)
 		{
-			if (!task.getFlag().contains("E") && task.getFlag().contains("S"))
+			if (!task.getFlag().contains(END) && task.getFlag().contains(START))
 			{
 				startedList.add(task);
 			}
@@ -54,12 +58,12 @@ public class EndTaskService
 
 		int taskId = input.nextInt();
 		boolean isEnded = false;
-		for (Task task : taskList)
+		for (Task task : startedList)
 		{
 			if (task.getId() == taskId)
 			{
 				StringBuilder flag = new StringBuilder(task.getFlag());
-				flag.append("E");
+				flag.append(END);
 				task.setFlag(flag.toString());
 				isEnded = true;
 			}
@@ -68,7 +72,7 @@ public class EndTaskService
 
 		if (!isEnded)
 		{
-			System.out.println("Inputted task not valid");
+			System.out.println("Input task not valid");
 			System.exit(0);
 		}
 		updateTask.updateTask(finalTaskList);

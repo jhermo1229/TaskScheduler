@@ -1,8 +1,8 @@
 package com.vlocity.task.dao;
 
-import com.vlocity.task.Task;
-
 import java.util.List;
+
+import com.vlocity.task.model.Task;
 
 
 /**

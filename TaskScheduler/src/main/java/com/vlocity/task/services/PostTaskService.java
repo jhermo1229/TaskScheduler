@@ -1,8 +1,8 @@
 package com.vlocity.task.services;
 
-import com.vlocity.task.Task;
 import com.vlocity.task.dao.PostTaskDao;
 import com.vlocity.task.dao.impl.PostTaskDaoImpl;
+import com.vlocity.task.model.Task;
 
 import com.vlocity.util.TaskSchedulerUtil;
 
@@ -11,17 +11,23 @@ import java.util.Scanner;
 
 
 /**
- * DOCUMENT ME!
+ * Service for task creation
  *
- * @version  $Revision$, $Date$
+ * @version  1
  */
 public class PostTaskService
 {
+	//~ Static fields/initializers ---------------
+	/**  */
+	private static final String CREATE = "C";
+
+	/**  */
+	private static final String YES = "Y";
 	//~ Instance fields --------------------------
 	/**  */
 	private PostTaskDao postTask = new PostTaskDaoImpl();
 	//~ Methods ----------------------------------
-	/** DOCUMENT ME! */
+	/** Task creation */
 	@SuppressWarnings("resource")
 	public void createTask()
 	{
@@ -37,48 +43,50 @@ public class PostTaskService
 		String dependency = s.next();
 		GetTaskService getTask = new GetTaskService();
 		List<Task> taskList = getTask.getAllTasks();
-		if (dependency.equalsIgnoreCase("Y"))
+		if (dependency.equalsIgnoreCase(YES))
 		{
 			TaskSchedulerUtil.getInstance().printTasks(taskList);
 			System.out.println("");
 			boolean isValid = false;
 			while (!isValid)
 			{
-				System.out.println("Please choose task ID of dependent task:");
-				isValid = validateInput(task, taskList, isValid);
+				System.out.println("Please choose task ID or IDs of dependent task:");
+				isValid = validateInput(task, taskList);
 			}
 		}
 		else
 		{
-			task.setDependentTaskId(0);
+			task.setDependentTaskId("0");
 		}
 		task.setId(taskList.size() + 1);
-		task.setFlag("C");
+		task.setFlag(CREATE);
 
 		postTask.saveTask(task);
 	}
 	
-	/**
-	 * DOCUMENT ME!
-	 *
-	 * @param   task
-	 * @param   taskList
-	 * @param   isValid
-	 * @return
-	 */
+	/** Validate if input is valid */
 	@SuppressWarnings("resource")
-	private boolean validateInput(Task task, List<Task> taskList, boolean isValid)
+	private boolean validateInput(Task task, List<Task> taskList)
 	{
 		Scanner input = new Scanner(System.in);
 
-		int dependentId = input.nextInt();
-		for (Task existingTask : taskList)
+		String dependentId = input.next();
+		char[] idList = dependentId.toCharArray();
+		boolean isValid = false;
+		for (char c : idList)
 		{
-			if (existingTask.getId() == dependentId)
+			// always return to false at multiple dependency
+			isValid = false;
+			for (Task existingTask : taskList)
 			{
-				task.setDependentTaskId(dependentId);
+				if (existingTask.getId() == Character.getNumericValue(c))
+				{
+					task.setDependentTaskId(dependentId);
 
-				isValid = true;
+					isValid = true;
+
+					break;
+				}
 			}
 		}
 

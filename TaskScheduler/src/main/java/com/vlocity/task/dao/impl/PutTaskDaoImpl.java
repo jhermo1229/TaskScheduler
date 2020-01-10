@@ -1,7 +1,7 @@
 package com.vlocity.task.dao.impl;
 
-import com.vlocity.task.Task;
 import com.vlocity.task.dao.PutTaskDao;
+import com.vlocity.task.model.Task;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,7 +23,6 @@ public class PutTaskDaoImpl implements PutTaskDao
 	 *
 	 * @param  task
 	 */
-	@Override
 	public void updateTask(List<Task> taskList)
 	{
 		FileWriter fw;

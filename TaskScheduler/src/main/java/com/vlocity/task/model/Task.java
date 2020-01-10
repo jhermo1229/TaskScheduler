@@ -1,4 +1,4 @@
-package com.vlocity.task;
+package com.vlocity.task.model;
 
 /**
  * DOCUMENT ME!
@@ -9,7 +9,7 @@ public class Task
 {
 	//~ Instance fields --------------------------
 	/**  */
-	Integer dependentTaskId;
+	String dependentTaskId;
 
 	/**  */
 	Integer endDate;
@@ -91,7 +91,7 @@ public class Task
 	 *
 	 * @return
 	 */
-	public Integer getDependentTaskId()
+	public String getDependentTaskId()
 	{
 		return dependentTaskId;
 	}
@@ -101,7 +101,7 @@ public class Task
 	 *
 	 * @param  i
 	 */
-	public void setDependentTaskId(Integer i)
+	public void setDependentTaskId(String i)
 	{
 		this.dependentTaskId = i;
 	}
@@ -126,7 +126,6 @@ public class Task
 		this.id = id;
 	}
 	
-
 	/**
 	 * DOCUMENT ME!
 	 *
@@ -137,7 +136,6 @@ public class Task
 		return flag;
 	}
 	
-
 	/**
 	 * DOCUMENT ME!
 	 *
