@@ -1,2 +1,6 @@
-Via Eclipse ide - Copy URL via clone and paste in GIT repository tab in eclipse.
-Right click 
+Via Eclipse ide - Copy URL via clone/download and paste in GIT repository tab in eclipse.
+Right click vlocity and click import project.
+Uncheck parent folder and check only the task-scheduler. Click finish.
+On task-scheduler, right click ApplicationRunner and click run as Java application
+
+
