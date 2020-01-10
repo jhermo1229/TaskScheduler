@@ -18,10 +18,12 @@ import java.util.Scanner;
  */
 public class EndTaskService
 {
+	//~ Static fields/initializers ---------------
+	/**  */
 	private static final String START = "S";
 
+	/**  */
 	private static final String END = "E";
-
 	//~ Instance fields --------------------------
 	/**  */
 	private GetTaskService getTask = new GetTaskService();
@@ -45,11 +47,7 @@ public class EndTaskService
 				startedList.add(task);
 			}
 		}
-		if (startedList.isEmpty())
-		{
-			System.out.println("No task started");
-			System.exit(0);
-		}
+		validateTaskList(startedList);
 
 		TaskSchedulerUtil.getInstance().printTasks(startedList);
 		System.out.println("Please choose task ID of task to end:");
@@ -58,9 +56,9 @@ public class EndTaskService
 
 		int taskId = input.nextInt();
 		boolean isEnded = false;
-		for (Task task : startedList)
+		for (Task task : taskList)
 		{
-			if (task.getId() == taskId)
+			if ((task.getId() == taskId) && task.getFlag().contains(START))
 			{
 				StringBuilder flag = new StringBuilder(task.getFlag());
 				flag.append(END);
@@ -76,5 +74,12 @@ public class EndTaskService
 			System.exit(0);
 		}
 		updateTask.updateTask(finalTaskList);
+	}
+	private void validateTaskList(List<Task> startedList) {
+		if (startedList.isEmpty())
+		{
+			System.out.println("No task started");
+			System.exit(0);
+		}
 	}
 }

@@ -20,6 +20,9 @@ public class StartTaskService
 {
 	//~ Static fields/initializers ---------------
 	/**  */
+	private static final String END = "E";
+
+	/**  */
 	private static final String STARTED = "S";
 
 	/**  */
@@ -48,6 +51,8 @@ public class StartTaskService
 			}
 		}
 
+		validateTaskStarted(notStartedList);
+
 		TaskSchedulerUtil.getInstance().printTasks(notStartedList);
 		System.out.println("Please choose task ID of task to start:");
 		Scanner input = new Scanner(System.in);
@@ -74,6 +79,21 @@ public class StartTaskService
 		updateTask.updateTask(finalTaskList);
 	}
 	
+
+	/**
+	 * DOCUMENT ME!
+	 *
+	 * @param  notStartedList
+	 */
+	private void validateTaskStarted(List<Task> notStartedList)
+	{
+		if (notStartedList.isEmpty())
+		{
+			System.out.println("No task available");
+			System.exit(0);
+		}
+	}
+	
 	/**
 	 * Dependent task checker
 	 *
@@ -86,12 +106,12 @@ public class StartTaskService
 
 		for (int i = 0; i < dependentList.length; i++)
 		{
-			char aa = dependentList[i];
-			for (Task task3 : taskList)
+			char depId = dependentList[i];
+			for (Task allTask : taskList)
 			{
-				if (task3.getId() == Character.getNumericValue(aa))
+				if (allTask.getId() == Character.getNumericValue(depId))
 				{
-					if (task3.getFlag().contains("E"))
+					if (allTask.getFlag().contains(END))
 					{
 						StringBuilder flag = new StringBuilder(task.getFlag());
 						if (i == (dependentList.length - 1))
